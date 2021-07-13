@@ -215,104 +215,7 @@ public class Innings {
                 input.equalsIgnoreCase("lb") ||
                 input.equalsIgnoreCase("w") ||
                 input.equalsIgnoreCase("nb")){
-            String amount = "-1";
-            input = input.toLowerCase(Locale.ROOT);
-
-            String offBat = "";
-            while (Integer.parseInt(amount) < 0){
-                switch(input) {
-                    case "b" :
-                        System.out.println("Enter number of byes");
-                        amount = in.nextLine();
-                        break; // optional
-                    case "lb" :
-                        System.out.println("Enter number of leg byes");
-                        amount = in.nextLine();
-                        break; // optional
-                    case "w" :
-                        System.out.println("Enter number of wides");
-                        amount = in.nextLine();
-                        break; // optional
-                    case "nb" :
-                        System.out.println("Enter number of no balls");
-                        amount = in.nextLine();
-                        if (Integer.parseInt(amount) > 1){
-                           while (!offBat.equalsIgnoreCase("yes") && !offBat.equalsIgnoreCase("no")){
-                               System.out.println("Runs off bat or byes? (yes/no)");
-                               offBat = in.nextLine();
-                           }
-                        }
-                    break; // optional
-                    // You can have any number of case statements.
-                    default : // Optional
-                        // Statements
-                }
-            }
-
-            updateScore(amount);
-
-            switch(input) {
-                case "b" :
-                    setByes(getByes()+Integer.parseInt(amount));
-                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
-                    updatePartnership(amount);
-                    break; // optional
-                case "lb" :
-                    setLegByes(getLegByes()+Integer.parseInt(amount));
-                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
-                    updatePartnership(amount);
-                    break; // optional
-                case "w" :
-                    setWides(getWides()+Integer.parseInt(amount));
-                    bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(amount));
-                    setPartnershipRuns(getPartnershipRuns() + Integer.parseInt(amount));
-                    break; // optional
-                case "nb" :
-                    setNoBalls(getNoBalls()+1);
-                    setPartnershipRuns(getPartnershipRuns() + Integer.parseInt(amount));
-                    if (offBat.equalsIgnoreCase("yes")){
-                        bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(amount));
-                    } else {
-                        bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt("1"));
-                        setByes(getByes()+Integer.parseInt(amount)-1);
-                    }
-                    break; // optional
-                // You can have any number of case statements.
-                default : // Optional
-                    // Statements
-            }
-
-            if (onStrike) {
-                if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
-                    updateBatsmenExtra(striker, amount, input, offBat);
-                } else {
-                    updateBatsmen(striker, "0");
-                }
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(striker).getInitials() + ": " + amount + input);
-            } else {
-                if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
-                    updateBatsmenExtra(nonStriker, amount, input, offBat);
-                } else {
-                    updateBatsmen(nonStriker, "0");
-                }
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(nonStriker).getInitials() + ": " + amount + input);
-            }
-
-            switch(input) {
-                case "b" :
-                    switchBat(amount);
-                    break; // optional
-                case "lb" :
-                    switchBat(amount);
-                    break; // optional
-                // You can have any number of case statements.
-                default : // Optional
-                    // Statements
-            }
+            extas(input);
         }
     }
 
@@ -919,6 +822,107 @@ public class Innings {
             } else {
                 onStrike = true;
             }
+        }
+    }
+
+    private void extas(String input){
+        String amount = "-1";
+        input = input.toLowerCase(Locale.ROOT);
+
+        String offBat = "";
+        while (Integer.parseInt(amount) < 0){
+            switch(input) {
+                case "b" :
+                    System.out.println("Enter number of byes");
+                    amount = in.nextLine();
+                    break; // optional
+                case "lb" :
+                    System.out.println("Enter number of leg byes");
+                    amount = in.nextLine();
+                    break; // optional
+                case "w" :
+                    System.out.println("Enter number of wides");
+                    amount = in.nextLine();
+                    break; // optional
+                case "nb" :
+                    System.out.println("Enter number of no balls");
+                    amount = in.nextLine();
+                    if (Integer.parseInt(amount) > 1){
+                        while (!offBat.equalsIgnoreCase("yes") && !offBat.equalsIgnoreCase("no")){
+                            System.out.println("Runs off bat or byes? (yes/no)");
+                            offBat = in.nextLine();
+                        }
+                    }
+                    break; // optional
+                // You can have any number of case statements.
+                default : // Optional
+                    // Statements
+            }
+        }
+
+        updateScore(amount);
+
+        switch(input) {
+            case "b" :
+                setByes(getByes()+Integer.parseInt(amount));
+                bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
+                updatePartnership(amount);
+                break; // optional
+            case "lb" :
+                setLegByes(getLegByes()+Integer.parseInt(amount));
+                bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
+                updatePartnership(amount);
+                break; // optional
+            case "w" :
+                setWides(getWides()+Integer.parseInt(amount));
+                bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(amount));
+                setPartnershipRuns(getPartnershipRuns() + Integer.parseInt(amount));
+                break; // optional
+            case "nb" :
+                setNoBalls(getNoBalls()+1);
+                setPartnershipRuns(getPartnershipRuns() + Integer.parseInt(amount));
+                if (offBat.equalsIgnoreCase("yes")){
+                    bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(amount));
+                } else {
+                    bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt("1"));
+                    setByes(getByes()+Integer.parseInt(amount)-1);
+                }
+                break; // optional
+            // You can have any number of case statements.
+            default : // Optional
+                // Statements
+        }
+
+        if (onStrike) {
+            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+                updateBatsmenExtra(striker, amount, input, offBat);
+            } else {
+                updateBatsmen(striker, "0");
+            }
+
+            previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                    batting.getPlayers().get(striker).getInitials() + ": " + amount + input);
+        } else {
+            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+                updateBatsmenExtra(nonStriker, amount, input, offBat);
+            } else {
+                updateBatsmen(nonStriker, "0");
+            }
+
+            previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                    batting.getPlayers().get(nonStriker).getInitials() + ": " + amount + input);
+        }
+
+        switch(input) {
+            case "b" :
+                switchBat(amount);
+                break; // optional
+            case "lb" :
+                switchBat(amount);
+                break; // optional
+            // You can have any number of case statements.
+            default : // Optional
+                // Statements
         }
     }
 }
