@@ -191,6 +191,7 @@ public class Innings {
 
         if (isNumeric(input) && Integer.parseInt(input) > -1){
             updateScore(input);
+            updateBalls();
             bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(input));
             bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
 
@@ -236,7 +237,7 @@ public class Innings {
                         System.out.println("Enter number of no balls");
                         amount = in.nextLine();
                         if (Integer.parseInt(amount) > 1){
-                           while (!offBat.equalsIgnoreCase("yes") || !offBat.equalsIgnoreCase("no")){
+                           while (!offBat.equalsIgnoreCase("yes") && !offBat.equalsIgnoreCase("no")){
                                System.out.println("Runs off bat or byes? (yes/no)");
                                offBat = in.nextLine();
                            }
@@ -272,6 +273,7 @@ public class Innings {
                     if (offBat.equalsIgnoreCase("yes")){
                         bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(amount));
                     } else {
+                        bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt("1"));
                         setByes(getByes()+Integer.parseInt(amount)-1);
                     }
                     break; // optional
@@ -281,8 +283,8 @@ public class Innings {
             }
 
             if (onStrike) {
-                if (input.equalsIgnoreCase("nb") && offBat.equalsIgnoreCase("yes")){
-                    updateBatsmenNoBall(striker, amount);
+                if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+                    updateBatsmenExtra(striker, amount, input, offBat);
                 } else {
                     updateBatsmen(striker, "0");
                 }
@@ -290,8 +292,8 @@ public class Innings {
                 previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
                         batting.getPlayers().get(striker).getInitials() + ": " + amount + input);
             } else {
-                if (input.equalsIgnoreCase("nb") && offBat.equalsIgnoreCase("yes")){
-                    updateBatsmenNoBall(nonStriker, amount);
+                if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+                    updateBatsmenExtra(nonStriker, amount, input, offBat);
                 } else {
                     updateBatsmen(nonStriker, "0");
                 }
@@ -580,7 +582,9 @@ public class Innings {
             batting.getPlayers().get(batsman).setFours(batting.getPlayers().get(batsman).getFours() + 1);
         } else if (input.equalsIgnoreCase("6")){
             batting.getPlayers().get(batsman).setSixes(batting.getPlayers().get(batsman).getSixes() + 1);
-        } else if (Integer.parseInt(input) % 2 == 1) {
+        }
+
+        if (Integer.parseInt(input) % 2 == 1) {
             if (onStrike) {
                 onStrike = false;
             } else {
@@ -589,19 +593,25 @@ public class Innings {
         }
     }
 
-    private void updateBatsmenNoBall(int batsman, String input){
-        batting.getPlayers().get(batsman).setRuns(batting.getPlayers().get(batsman).getRuns() + Integer.parseInt(input)-1);
-        batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls() + 1);
+    private void updateBatsmenExtra(int batsman, String input, String noBallOrWide, String isOffBat){
+        if (isOffBat.equalsIgnoreCase("yes")) {
+            batting.getPlayers().get(batsman).setRuns(batting.getPlayers().get(batsman).getRuns() + Integer.parseInt(input) - 1);
+            if (input.equalsIgnoreCase("5")){
+                batting.getPlayers().get(batsman).setFours(batting.getPlayers().get(batsman).getFours() + 1);
+            } else if (input.equalsIgnoreCase("7")){
+                batting.getPlayers().get(batsman).setSixes(batting.getPlayers().get(batsman).getSixes() + 1);
+            }
+        }
 
-        if (input.equalsIgnoreCase("5")){
-            batting.getPlayers().get(batsman).setFours(batting.getPlayers().get(batsman).getFours() + 1);
-        } else if (input.equalsIgnoreCase("7")){
-            batting.getPlayers().get(batsman).setSixes(batting.getPlayers().get(batsman).getSixes() + 1);
-        } else if (Integer.parseInt(input) % 2 == 1) {
+        if (noBallOrWide.equalsIgnoreCase("nb")) {
+            batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls() + 1);
+        }
+
+        if (Integer.parseInt(input) % 2 == 0) {
             if (onStrike) {
-                onStrike = true;
-            } else {
                 onStrike = false;
+            } else {
+                onStrike = true;
             }
         }
     }
@@ -896,6 +906,9 @@ public class Innings {
 
     private void updateScore(String input){
         setScore(getScore()+Integer.parseInt(input));
+    }
+
+    private void updateBalls(){
         setBalls(getBalls()+1);
     }
 
