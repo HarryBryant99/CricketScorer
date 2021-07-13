@@ -39,6 +39,8 @@ public class Innings {
     private int partnershipFours;
     private int partnershipSixes;
 
+    private int dots;
+
     private String lastWicket = "";
     private int fow = -1;
 
@@ -59,6 +61,7 @@ public class Innings {
         setLegByes(0);
         setPenalties(0);
         setBalls(0);
+        setDots(0);
 
         this.firstRuns = firstRuns;
         this.firstWickets = firstWickets;
@@ -158,6 +161,11 @@ public class Innings {
         System.out.println("\n");
         String confirm = "";
         if (isOver()){
+            if (getDots() == 6){
+                bowling.getPlayers().get(bowler).setMaidens(bowling.getPlayers().get(bowler).getMaidens()+1);
+            }
+            setDots(0);
+
             if (getPreviousBowler() !=-1){
                 do {
                     System.out.println(bowling.getPlayers().get(previousBowler).getName() + " to continue? (Yes/No)");
@@ -190,6 +198,9 @@ public class Innings {
         }
 
         if (isNumeric(input) && Integer.parseInt(input) > -1){
+            if (Integer.parseInt(input) == 0){
+                setDots(getDots()+1);
+            }
             updateScore(input);
             updateBalls();
             bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(input));
@@ -743,6 +754,14 @@ public class Innings {
 
     public void setTotalBalls(int totalBalls) {
         this.totalBalls = totalBalls;
+    }
+
+    public int getDots() {
+        return dots;
+    }
+
+    public void setDots(int dots) {
+        this.dots = dots;
     }
 
     private String getRunRate(){

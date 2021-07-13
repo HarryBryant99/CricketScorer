@@ -15,9 +15,6 @@ public class Main {
     static Team bowling;
 
     public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
-
-        MusicPlayer musicPlayer = new MusicPlayer();
-
         String confirm = "";
         overs = 0;
         while (!confirm.equalsIgnoreCase("yes")) {
