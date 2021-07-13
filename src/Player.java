@@ -95,7 +95,7 @@ public class Player {
     }
 
     public String getEconomy(){
-        if (getBallsBowled()!=0) {
+        if (getRunsConceded()!=0) {
             DecimalFormat df = new DecimalFormat("#.00");
             double runs = getRunsConceded();
             double balls = getBallsBowled();
@@ -150,7 +150,7 @@ public class Player {
     }
 
     public String getStrikeRate(){
-        if (getBalls()!=0) {
+        if (getRuns()!=0) {
             DecimalFormat df = new DecimalFormat("#.00");
             //return df.format((getRuns() / getBalls()) * 100);
             double runs = getRuns();
