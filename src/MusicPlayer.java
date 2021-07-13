@@ -22,7 +22,7 @@ public class MusicPlayer {
 
     public void playMusic(){
         InputStream music;
-        String filepath = "src/Music/Three Lions (Football's Coming Home) (Official Video).wav";
+        String filepath = "Music/Three Lions (Football's Coming Home) (Official Video).wav";
 
         try {
             music = new FileInputStream(new File(filepath));
