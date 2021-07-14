@@ -227,6 +227,8 @@ public class Innings {
                 input.equalsIgnoreCase("w") ||
                 input.equalsIgnoreCase("nb")){
             extas(input);
+        } else if (input.equalsIgnoreCase("Switch bat")){
+            switchBat("1");
         }
     }
 
