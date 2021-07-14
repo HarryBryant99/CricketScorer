@@ -188,7 +188,7 @@ public class Innings {
         printScore();
 
         String input = "";
-        while (input.equalsIgnoreCase("") || input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
+        while (input.equalsIgnoreCase("")){
             System.out.println("Enter next ball (h or 'help' for more information)");
             input = in.nextLine();
         }
@@ -224,11 +224,13 @@ public class Innings {
             printScorecard();
         } else if (input.equalsIgnoreCase("b") ||
                 input.equalsIgnoreCase("lb") ||
-                input.equalsIgnoreCase("w") ||
+                input.equalsIgnoreCase("+") ||
                 input.equalsIgnoreCase("nb")){
             extas(input);
         } else if (input.equalsIgnoreCase("Switch bat")){
             switchBat("1");
+        } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
+            help();
         }
     }
 
@@ -915,7 +917,7 @@ public class Innings {
         }
 
         if (onStrike) {
-            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("+")){
                 updateBatsmenExtra(striker, amount, input, offBat);
             } else {
                 updateBatsmen(striker, "0");
@@ -924,7 +926,7 @@ public class Innings {
             previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
                     batting.getPlayers().get(striker).getInitials() + ": " + amount + input);
         } else {
-            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("w")){
+            if (input.equalsIgnoreCase("nb") || input.equalsIgnoreCase("+")){
                 updateBatsmenExtra(nonStriker, amount, input, offBat);
             } else {
                 updateBatsmen(nonStriker, "0");
@@ -945,5 +947,16 @@ public class Innings {
             default : // Optional
                 // Statements
         }
+    }
+
+    private void help(){
+        System.out.println("Enter one of the following options: \n" +
+                "#: Enter the number of runs scored\n" +
+                "W: Wicket\n"+
+                "B: Bye\n"+
+                "LB: Leg Bye\n"+
+                "+: Wide\n"+
+                "NB: No Ball\n"+
+                "Switch Bat: Change the batsman who is on strike");
     }
 }
