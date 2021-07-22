@@ -86,7 +86,7 @@ public class Innings {
                 bowler = -1;
             }
 
-            while (0 > striker || striker > 12) {
+            while (1 > striker || striker > 11) {
                 System.out.println("Enter player number who is facing the first ball:");
                 for (int i = 0; i < batting.getPlayers().size(); i++) {
                     System.out.println(i + 1 + ": " + batting.getPlayers().get(i).getName());
@@ -99,7 +99,7 @@ public class Innings {
 
             boolean alreadyBatted = false;
 
-            while (0 > nonStriker || nonStriker > 12 || nonStriker == striker+1) {
+            while (1 > nonStriker || nonStriker > 11 || nonStriker == striker+1) {
                 System.out.println("Enter player number who is the non striker:");
                 for (int i = 0; i < batting.getPlayers().size(); i++) {
                     for (int j = 0; j < batsman.size(); j++) {
@@ -129,7 +129,7 @@ public class Innings {
 
         confirm = "";
         while (!confirm.equalsIgnoreCase("yes")) {
-            while (0 > bowler || bowler > 12) {
+            while (1 > bowler || bowler > 11) {
                 System.out.println("Enter player number who is bowling:");
                 for (int i = 0; i < batting.getPlayers().size(); i++) {
                     System.out.println(i + 1 + ": " + bowling.getPlayers().get(i).getName());
@@ -162,6 +162,8 @@ public class Innings {
         System.out.println("\n");
         String confirm = "";
         if (isOver()){
+            clear();
+            printScore();
             mp.playMusic(1);
 
             if (previousBalls.size()>18){
@@ -822,7 +824,7 @@ public class Innings {
     private void newBowler() {
         setPreviousBowler(bowler);
         bowler = -1;
-        while (0 > bowler || bowler > 12 || bowler == getPreviousBowler()+1) {
+        while (1 > bowler || bowler > 11 || bowler == getPreviousBowler()+1) {
             System.out.println("Enter player number who is bowling:");
             for (int i = 0; i < bowling.getPlayers().size(); i++) {
                 if (i != getPreviousBowler()) {
@@ -973,5 +975,10 @@ public class Innings {
                 "+: Wide\n"+
                 "NB: No Ball\n"+
                 "Switch Bat: Change the batsman who is on strike");
+    }
+
+    private void wicket(){
+        mp.playMusic(3);
+        System.out.println("How Out? \nB: Bowled, C: Caught, L: LBW, S: Stumped, R: Run Out");
     }
 }
