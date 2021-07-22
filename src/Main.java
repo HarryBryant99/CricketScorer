@@ -66,9 +66,16 @@ public class Main {
             isHomeBatting = true;
         }
 
-        Innings firstInnings = new Innings(batting, bowling, true, isHomeBatting, 0,0,0, overs*6);
+        Innings firstInnings = new Innings(batting, bowling, true, isHomeBatting,
+                0,0,0, overs*6);
 
-        System.out.println(firstInnings.getScore());
+        if (isHomeBatting){
+            isHomeBatting = false;
+        } else {
+            isHomeBatting = true;
+        }
+        Innings secondInnings = new Innings(bowling, batting, false, isHomeBatting,
+                firstInnings.getScore(), firstInnings.getWickets(), firstInnings.getBalls(), overs*6);
     }
 
     private static void clear() throws IOException, InterruptedException {
