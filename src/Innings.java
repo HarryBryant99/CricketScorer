@@ -240,8 +240,10 @@ public class Innings {
         } else if (input.equalsIgnoreCase("b") ||
                 input.equalsIgnoreCase("lb") ||
                 input.equalsIgnoreCase("+") ||
-                input.equalsIgnoreCase("nb")){
+                input.equalsIgnoreCase("nb")) {
             extas(input);
+        } else if (input.equalsIgnoreCase("w")){
+            wicket();
         } else if (input.equalsIgnoreCase("Switch bat")){
             switchBat("1");
         } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
@@ -978,7 +980,7 @@ public class Innings {
     }
 
     private void wicket(){
-        mp.playMusic(3);
-        System.out.println("How Out? \nB: Bowled, C: Caught, L: LBW, S: Stumped, R: Run Out");
+        mp.playMusic(2);
+        System.out.println("How Out? \nB: Bowled, C: Caught, L: LBW, S: Stumped, RO: Run Out, Rt: Retired");
     }
 }
