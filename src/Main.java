@@ -69,6 +69,8 @@ public class Main {
         Innings firstInnings = new Innings(batting, bowling, true, isHomeBatting,
                 0,0,0, overs*6);
 
+        firstInnings.printScorecard();
+
         if (isHomeBatting){
             isHomeBatting = false;
         } else {
@@ -76,6 +78,8 @@ public class Main {
         }
         Innings secondInnings = new Innings(bowling, batting, false, isHomeBatting,
                 firstInnings.getScore(), firstInnings.getWickets(), firstInnings.getBalls(), overs*6);
+
+        secondInnings.printScorecard();
     }
 
     private static void clear() throws IOException, InterruptedException {
