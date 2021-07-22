@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Innings {
     Scanner in = new Scanner(System.in);
+    MusicPlayer mp = new MusicPlayer();
 
     private int score;
     private int wickets;
@@ -161,6 +162,18 @@ public class Innings {
         System.out.println("\n");
         String confirm = "";
         if (isOver()){
+            mp.playMusic(1);
+
+            if (previousBalls.size()>18){
+                previousBalls.remove(0);
+            }
+
+            previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + ": " +
+                    bowling.getPlayers().get(bowler).getOvers() + "-" +
+                    bowling.getPlayers().get(bowler).getMaidens() + "-" +
+                    bowling.getPlayers().get(bowler).getWickets() + "-" +
+                    bowling.getPlayers().get(bowler).getRunsConceded());
+
             if (getDots() == 6){
                 bowling.getPlayers().get(bowler).setMaidens(bowling.getPlayers().get(bowler).getMaidens()+1);
             }
@@ -498,8 +511,10 @@ public class Innings {
 
         if (input.equalsIgnoreCase("4")){
             batting.getPlayers().get(batsman).setFours(batting.getPlayers().get(batsman).getFours() + 1);
+            mp.playMusic(0);
         } else if (input.equalsIgnoreCase("6")){
             batting.getPlayers().get(batsman).setSixes(batting.getPlayers().get(batsman).getSixes() + 1);
+            mp.playMusic(0);
         }
 
         if (Integer.parseInt(input) % 2 == 1) {
