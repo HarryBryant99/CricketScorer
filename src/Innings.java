@@ -1006,6 +1006,8 @@ public class Innings {
             switch (input){
                 case "b":
                     lastMan = "b. " + bowlersName;
+                    batting.getPlayers().get(batsman).setHowOut(lastMan);
+                    setLastWicket(batting.getPlayers().get(batsman).getShortName() + ": " + lastMan);
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1014,6 +1016,8 @@ public class Innings {
                     break;
                 case "c" :
                     lastMan = "c. " + getFielder() + " b. " + bowlersName;
+                    batting.getPlayers().get(batsman).setHowOut(lastMan);
+                    setLastWicket(batting.getPlayers().get(batsman).getShortName() + ": " + lastMan);
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1023,6 +1027,8 @@ public class Innings {
                     break;
                 case "s" :
                     lastMan = "st. " + getFielder() + " b. " + bowlersName;
+                    batting.getPlayers().get(batsman).setHowOut(lastMan);
+                    setLastWicket(batting.getPlayers().get(batsman).getShortName() + ": " + lastMan);
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1030,8 +1036,15 @@ public class Innings {
                     }
                     break;
                 case "ro" :
-                    lastMan = "run out. " + getFielder();
-                    runOut();
+                    batting.getPlayers().get(batsman).setHowOut("run out. " + getFielder());
+                    int manOut = runOut();
+                    batting.getPlayers().get(manOut).setHowOut(lastMan);
+                    setLastWicket(batting.getPlayers().get(manOut).getShortName() + ": " + lastMan);
+                    if (manOut == 1){
+                        striker = newBat();
+                    } else {
+                        nonStriker = newBat();
+                    }
                     checkStrike();
                     break;
                 default :
@@ -1039,8 +1052,6 @@ public class Innings {
 
             setWickets(getWickets()+1);
             setFow(getScore());
-            batting.getPlayers().get(batsman).setHowOut(lastMan);
-            setLastWicket(lastMan);
         }
     }
 
