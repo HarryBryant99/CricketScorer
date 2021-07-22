@@ -241,9 +241,19 @@ public class Innings {
                 input.equalsIgnoreCase("lb") ||
                 input.equalsIgnoreCase("+") ||
                 input.equalsIgnoreCase("nb")) {
-            extas(input);
+            extras(input);
         } else if (input.equalsIgnoreCase("w")){
-            wicket();
+            if (onStrike) {
+                wicket(striker);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(striker).getInitials() + ": " + input);
+            } else {
+                wicket(nonStriker);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
+            }
         } else if (input.equalsIgnoreCase("Switch bat")){
             switchBat("1");
         } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
@@ -402,7 +412,7 @@ public class Innings {
         System.out.println("\n");
     }
 
-    private void printScorecard(){
+    public void printScorecard(){
         String scoreFormat = "| %76s   %8s   %8s |%n";
         System.out.format("+----------------------------------------------------------------------------------------------------+%n");
 
@@ -867,7 +877,7 @@ public class Innings {
         }
     }
 
-    private void extas(String input){
+    private void extras(String input){
         String amount = "-1";
         input = input.toLowerCase(Locale.ROOT);
 
@@ -979,8 +989,126 @@ public class Innings {
                 "Switch Bat: Change the batsman who is on strike");
     }
 
-    private void wicket(){
+    private void wicket(int batsman){
         mp.playMusic(2);
-        System.out.println("How Out? \nB: Bowled, C: Caught, L: LBW, S: Stumped, RO: Run Out, Rt: Retired");
+        String input = "";
+        while (!input.equalsIgnoreCase("B") || !input.equalsIgnoreCase("C") ||
+                !input.equalsIgnoreCase("L") || !input.equalsIgnoreCase("S") ||
+                !input.equalsIgnoreCase("RO") || !input.equalsIgnoreCase("Cancel")) {
+            System.out.println("How Out? \nB: Bowled, C: Caught, L: LBW, S: Stumped, RO: Run Out, Cancel");
+            input = in.nextLine();
+        }
+
+        if (!input.equalsIgnoreCase("Cancel")){
+            input = input.toLowerCase(Locale.ROOT);
+            String bowlersName = bowling.getPlayers().get(bowler).getShortName();
+            switch (input){
+                case "b":
+                    batting.getPlayers().get(batsman).setHowOut("b. " + bowlersName);
+                    if (onStrike){
+                        striker = newBat();
+                    } else {
+                        nonStriker = newBat();
+                    }
+                    break;
+                case "c" :
+                    batting.getPlayers().get(batsman).setHowOut("c. " + getFielder() + " b. " + bowlersName);
+                    if (onStrike){
+                        striker = newBat();
+                    } else {
+                        nonStriker = newBat();
+                    }
+                    checkStrike();
+                    break;
+                case "s" :
+                    batting.getPlayers().get(batsman).setHowOut("st. " + getFielder() + " b. " + bowlersName);
+                    if (onStrike){
+                        striker = newBat();
+                    } else {
+                        nonStriker = newBat();
+                    }
+                    break;
+                case "ro" :
+                    batting.getPlayers().get(batsman).setHowOut("run out. " + getFielder());
+                    runOut();
+                    checkStrike();
+                    break;
+                default :
+            }
+
+            setWickets(getWickets()+1);
+        }
+    }
+
+    private String getFielder(){
+        int fielder = -1;
+        while (1 > fielder || fielder > 11) {
+            System.out.println("Enter player number of the fielder:");
+            for (int i = 0; i < bowling.getPlayers().size(); i++) {
+                if (i != getPreviousBowler()) {
+                    System.out.println(i + 1 + ": " + bowling.getPlayers().get(i).getName());
+                }
+            }
+            fielder = in.nextInt();
+        }
+        fielder--;
+        return bowling.getPlayers().get(fielder).getShortName();
+    }
+
+    private int newBat(){
+        boolean alreadyBatted = false;
+        int newBatsman = -1;
+
+        while (1 > newBatsman || newBatsman > 11) {
+            System.out.println("Enter player number for the new batsmen:");
+            for (int i = 0; i < batting.getPlayers().size(); i++) {
+                for (int j = 0; j < batsman.size(); j++) {
+                    if (i == batsman.get(j)) {
+                        alreadyBatted = true;
+                    }
+                }
+                if (!alreadyBatted) {
+                    System.out.println(i + 1 + ": " + batting.getPlayers().get(i).getName());
+                }
+                alreadyBatted = false;
+            }
+            newBatsman = in.nextInt();
+        }
+        newBatsman--;
+
+        batsman.add(newBatsman);
+
+        in.nextLine();
+        return newBatsman;
+    }
+
+    private void checkStrike(){
+        System.out.println("Who is on strike");
+        int strike = -1;
+        while (1 > strike || strike > 2) {
+            System.out.println("1." + batting.getPlayers().get(striker).getShortName() +
+                    "\n2. " + batting.getPlayers().get(nonStriker).getShortName());
+            in.nextLine();
+        }
+        if (strike == 1){
+            onStrike = true;
+        } else {
+            onStrike = false;
+        }
+    }
+
+    private int runOut(){
+        System.out.println("Who was run out");
+        int strike = -1;
+        while (1 > strike || strike > 2) {
+            System.out.println("1." + batting.getPlayers().get(striker).getShortName() +
+                    "\n2. " + batting.getPlayers().get(nonStriker).getShortName());
+            in.nextLine();
+        }
+        if (strike == 1){
+            return striker;
+        } else {
+            return nonStriker;
+        }
     }
 }
