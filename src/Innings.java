@@ -406,7 +406,7 @@ public class Innings {
                     "", "", "", "", "", "", printPrevious(18));
         } else {
             System.out.format(leftAlignFormat,
-                    lastWicket, "FOW", getFow(), "", "", "", 19);
+                    getLastWicket(), "FOW", getFow(), "", "", "", printPrevious(18));
         }
         System.out.format("+---------------------------+--------+--------+--------+--------+--------+---------------------------+");
         System.out.println("\n");
@@ -999,12 +999,13 @@ public class Innings {
             input = in.nextLine();
         }
 
+        String lastMan = "";
         if (!input.equalsIgnoreCase("Cancel")){
             input = input.toLowerCase(Locale.ROOT);
             String bowlersName = bowling.getPlayers().get(bowler).getShortName();
             switch (input){
                 case "b":
-                    batting.getPlayers().get(batsman).setHowOut("b. " + bowlersName);
+                    lastMan = "b. " + bowlersName;
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1012,7 +1013,7 @@ public class Innings {
                     }
                     break;
                 case "c" :
-                    batting.getPlayers().get(batsman).setHowOut("c. " + getFielder() + " b. " + bowlersName);
+                    lastMan = "c. " + getFielder() + " b. " + bowlersName;
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1021,7 +1022,7 @@ public class Innings {
                     checkStrike();
                     break;
                 case "s" :
-                    batting.getPlayers().get(batsman).setHowOut("st. " + getFielder() + " b. " + bowlersName);
+                    lastMan = "st. " + getFielder() + " b. " + bowlersName;
                     if (onStrike){
                         striker = newBat();
                     } else {
@@ -1029,7 +1030,7 @@ public class Innings {
                     }
                     break;
                 case "ro" :
-                    batting.getPlayers().get(batsman).setHowOut("run out. " + getFielder());
+                    lastMan = "run out. " + getFielder();
                     runOut();
                     checkStrike();
                     break;
@@ -1037,6 +1038,9 @@ public class Innings {
             }
 
             setWickets(getWickets()+1);
+            setFow(getScore());
+            batting.getPlayers().get(batsman).setHowOut(lastMan);
+            setLastWicket(lastMan);
         }
     }
 
