@@ -1,8 +1,9 @@
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class Player {
-    private String firstname;
-    private String surname;
+    private String firstname = "";
+    private String surname = "";
 
     private int runs;
     private int balls;
@@ -35,7 +36,7 @@ public class Player {
     }
 
     public String getInitials(){
-        return getFirstname().substring(0,1) + getSurname().substring(0,1);
+        return (getFirstname().substring(0,1) + getSurname().substring(0,1)).toUpperCase(Locale.ROOT);
     }
 
     public String getFirstname() {
