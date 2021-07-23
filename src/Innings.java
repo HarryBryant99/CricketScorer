@@ -47,10 +47,12 @@ public class Innings {
 
     private ArrayList<String> previousBalls = new ArrayList<>();
 
-    private ArrayList<Integer> batsman = new ArrayList<>();
+    private ArrayList<Integer> batsmen = new ArrayList<>();
     private ArrayList<Integer> bowlers = new ArrayList<>();
 
     private boolean onStrike;
+
+    private boolean alreadyOver = false;
 
     public Innings(Team batting, Team bowling, boolean firstInnings, boolean isHomeBatting, int firstRuns, int firstWickets, int firstBalls, int totalBalls)
             throws IOException, InterruptedException {
@@ -79,8 +81,8 @@ public class Innings {
 
         String confirm = "";
         while (!confirm.equalsIgnoreCase("yes")) {
-            if (batsman.size() > 0){
-                batsman.clear();
+            if (batsmen.size() > 0){
+                batsmen.clear();
                 striker = -1;
                 nonStriker = -1;
                 bowler = -1;
@@ -95,15 +97,15 @@ public class Innings {
             }
             striker--;
 
-            batsman.add(striker);
+            batsmen.add(striker);
 
             boolean alreadyBatted = false;
 
             while (1 > nonStriker || nonStriker > 11 || nonStriker == striker+1) {
                 System.out.println("Enter player number who is the non striker:");
                 for (int i = 0; i < batting.getPlayers().size(); i++) {
-                    for (int j = 0; j < batsman.size(); j++) {
-                        if (i == batsman.get(j)) {
+                    for (int j = 0; j < batsmen.size(); j++) {
+                        if (i == batsmen.get(j)) {
                             alreadyBatted = true;
                         }
                     }
@@ -116,7 +118,7 @@ public class Innings {
             }
             nonStriker--;
 
-            batsman.add(nonStriker);
+            batsmen.add(nonStriker);
 
             in.nextLine();
 
@@ -161,7 +163,7 @@ public class Innings {
     private void nextBall() throws IOException, InterruptedException {
         System.out.println("\n");
         String confirm = "";
-        if (isOver()){
+        if (isOver() && !alreadyOver){
             clear();
             printScore();
             mp.playMusic(1);
@@ -197,6 +199,7 @@ public class Innings {
             } else {
                 newBowler();
             }
+            alreadyOver = true;
         }
 
         clear();
@@ -213,6 +216,7 @@ public class Innings {
         }
 
         if (isNumeric(input) && Integer.parseInt(input) > -1){
+            alreadyOver = false;
             if (Integer.parseInt(input) == 0){
                 setDots(getDots()+1);
             }
@@ -241,8 +245,10 @@ public class Innings {
                 input.equalsIgnoreCase("lb") ||
                 input.equalsIgnoreCase("+") ||
                 input.equalsIgnoreCase("nb")) {
+            alreadyOver = false;
             extras(input);
         } else if (input.equalsIgnoreCase("w")){
+            alreadyOver = false;
             if (onStrike) {
                 wicket(striker);
 
@@ -457,21 +463,21 @@ public class Innings {
         System.out.format(leftAlignFormat,"","","R","B","4s","6s","SR");
         System.out.format("+---------------------------+---------------------------+--------+--------+--------+--------+--------+%n");
 
-        for (int i = 0; i < batsman.size(); i++) {
+        for (int i = 0; i < batsmen.size(); i++) {
             System.out.format(leftAlignFormat,
-                    batting.getPlayers().get(batsman.get(i)).getShortName(),
-                    batting.getPlayers().get(batsman.get(i)).getHowOut(),
-                    batting.getPlayers().get(batsman.get(i)).getRuns(),
-                    batting.getPlayers().get(batsman.get(i)).getBalls(),
-                    batting.getPlayers().get(batsman.get(i)).getFours(),
-                    batting.getPlayers().get(batsman.get(i)).getSixes(),
-                    batting.getPlayers().get(batsman.get(i)).getStrikeRate());
+                    batting.getPlayers().get(batsmen.get(i)).getShortName(),
+                    batting.getPlayers().get(batsmen.get(i)).getHowOut(),
+                    batting.getPlayers().get(batsmen.get(i)).getRuns(),
+                    batting.getPlayers().get(batsmen.get(i)).getBalls(),
+                    batting.getPlayers().get(batsmen.get(i)).getFours(),
+                    batting.getPlayers().get(batsmen.get(i)).getSixes(),
+                    batting.getPlayers().get(batsmen.get(i)).getStrikeRate());
         }
 
         boolean alreadyBatted = false;
         for (int i = 0; i < batting.getPlayers().size(); i++) {
-            for (int j = 0; j < batsman.size(); j++) {
-                if (i == batsman.get(j)) {
+            for (int j = 0; j < batsmen.size(); j++) {
+                if (i == batsmen.get(j)) {
                     alreadyBatted = true;
                 }
             }
@@ -1011,10 +1017,14 @@ public class Innings {
                     batting.getPlayers().get(batsman).setHowOut(lastMan);
                     setLastWicket(batting.getPlayers().get(batsman).getShortName() + " " + lastMan + " (" +
                             batting.getPlayers().get(batsman).getRuns() + ")");
-                    if (onStrike){
-                        striker = newBat();
-                    } else {
-                        nonStriker = newBat();
+                    batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
+                    bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    if (getWickets() != 9) {
+                        if (onStrike){
+                            striker = newBat();
+                        } else {
+                            nonStriker = newBat();
+                        }
                     }
                     break;
                 case "l":
@@ -1022,10 +1032,14 @@ public class Innings {
                     batting.getPlayers().get(batsman).setHowOut(lastMan);
                     setLastWicket(batting.getPlayers().get(batsman).getShortName() + " " + lastMan + " (" +
                             batting.getPlayers().get(batsman).getRuns() + ")");
-                    if (onStrike){
-                        striker = newBat();
-                    } else {
-                        nonStriker = newBat();
+                    batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
+                    bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    if (getWickets() != 9) {
+                        if (onStrike){
+                            striker = newBat();
+                        } else {
+                            nonStriker = newBat();
+                        }
                     }
                     break;
                 case "c" :
@@ -1033,22 +1047,30 @@ public class Innings {
                     batting.getPlayers().get(batsman).setHowOut(lastMan);
                     setLastWicket(batting.getPlayers().get(batsman).getShortName() + " " + lastMan + " (" +
                             batting.getPlayers().get(batsman).getRuns() + ")");
-                    if (onStrike){
-                        striker = newBat();
-                    } else {
-                        nonStriker = newBat();
+                    batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
+                    bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    if (getWickets() != 9) {
+                        if (onStrike) {
+                            striker = newBat();
+                        } else {
+                            nonStriker = newBat();
+                        }
+                        checkStrike();
                     }
-                    checkStrike();
                     break;
                 case "s" :
                     lastMan = "st. " + getFielder() + " b. " + bowlersName;
                     batting.getPlayers().get(batsman).setHowOut(lastMan);
                     setLastWicket(batting.getPlayers().get(batsman).getShortName() + " " + lastMan + " (" +
                             batting.getPlayers().get(batsman).getRuns() + ")");
-                    if (onStrike){
-                        striker = newBat();
-                    } else {
-                        nonStriker = newBat();
+                    batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
+                    bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    if (getWickets() != 9) {
+                        if (onStrike) {
+                            striker = newBat();
+                        } else {
+                            nonStriker = newBat();
+                        }
                     }
                     break;
                 case "ro" :
@@ -1058,14 +1080,20 @@ public class Innings {
                         batting.getPlayers().get(manOut).setHowOut(lastMan);
                         setLastWicket(batting.getPlayers().get(striker).getShortName() + " " + lastMan + " (" +
                                 batting.getPlayers().get(striker).getRuns() + ")");
-                        striker = newBat();
+                        if (getWickets() != 9) {
+                            striker = newBat();
+                        }
                     } else {
                         batting.getPlayers().get(nonStriker).setHowOut(lastMan);
                         setLastWicket(batting.getPlayers().get(nonStriker).getShortName() + " " + lastMan + " (" +
                                 batting.getPlayers().get(nonStriker).getRuns() + ")");
-                        nonStriker = newBat();
+                        if (getWickets() != 9) {
+                            nonStriker = newBat();
+                        }
                     }
-                    checkStrike();
+                    if (getWickets() != 9) {
+                        checkStrike();
+                    }
                     break;
                 default :
             }
@@ -1103,8 +1131,8 @@ public class Innings {
         while (1 > newBatsman || newBatsman > 11) {
             System.out.println("Enter player number for the new batsmen:");
             for (int i = 0; i < batting.getPlayers().size(); i++) {
-                for (int j = 0; j < batsman.size(); j++) {
-                    if (i == batsman.get(j)) {
+                for (int j = 0; j < batsmen.size(); j++) {
+                    if (i == batsmen.get(j)) {
                         alreadyBatted = true;
                     }
                 }
@@ -1117,7 +1145,7 @@ public class Innings {
         }
         newBatsman--;
 
-        batsman.add(newBatsman);
+        batsmen.add(newBatsman);
 
         in.nextLine();
         return newBatsman;
