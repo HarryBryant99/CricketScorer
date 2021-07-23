@@ -129,6 +129,9 @@ public class Innings {
             confirm = in.nextLine();
         }
 
+        batting.getPlayers().get(striker).setAlreadyBatted(true);
+        batting.getPlayers().get(nonStriker).setAlreadyBatted(true);
+
         confirm = "";
         while (!confirm.equalsIgnoreCase("yes")) {
             while (1 > bowler || bowler > 11) {
@@ -311,14 +314,16 @@ public class Innings {
 
         System.out.format("+------------------------------------------------------------------------+---------------------------+%n");
 
-        String runRateFormat = "| %34s   %33s | %25s |%n";
+        String runRateFormat = "| %47s   %20s | %25s |%n";
 
         if (firstInnings){
             System.out.format(runRateFormat, "Predicted Score: " + getPrediction(),
                     "Current RR: " + getRunRate(),
                     printPrevious(1));
         } else {
-
+            System.out.format(runRateFormat, batting.getName() + " require " + getRunsToWin() + " from " + getBallsRemaining(),
+                    "Required RR: " + getRequired(),
+                    printPrevious(1));
         }
 
         System.out.format("+---------------------------+--------+--------+--------+--------+--------+");
@@ -818,15 +823,23 @@ public class Innings {
     }
 
     private String getRequired(){
-        if (getBalls()!=0) {
+        if (getRunsToWin()>0) {
             DecimalFormat df = new DecimalFormat("#.00");
             //return df.format((getRuns() / getBalls()) * 100);
-            double runs = getScore();
-            double balls = getBalls();
+            double runs = getRunsToWin();
+            double balls = getBallsRemaining();
             return df.format((runs / balls) * 6);
         } else {
             return "0.00";
         }
+    }
+
+    public int getRunsToWin(){
+        return ((getFirstRuns()+1)-getScore());
+    }
+
+    private int getBallsRemaining(){
+        return (getFirstBalls()-getBalls());
     }
 
     private String getPrediction(){
@@ -1153,6 +1166,8 @@ public class Innings {
         newBatsman--;
 
         batsmen.add(newBatsman);
+
+        batting.getPlayers().get(newBatsman).setAlreadyBatted(true);
 
         in.nextLine();
         return newBatsman;

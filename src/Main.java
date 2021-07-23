@@ -80,6 +80,14 @@ public class Main {
                 firstInnings.getScore(), firstInnings.getWickets(), firstInnings.getBalls(), overs*6);
 
         secondInnings.printScorecard();
+
+        if (secondInnings.getScore() > firstInnings.getScore()){
+            System.out.println(bowling.getName() + " win by " + (10 - secondInnings.getWickets()) + " wickets");
+        } else if (firstInnings.getScore() > secondInnings.getScore()) {
+            System.out.println(bowling.getName() + " win by " + (secondInnings.getRunsToWin()-1) + " runs");
+        } else {
+            System.out.println("Match Drawn");
+        }
     }
 
     private static void clear() throws IOException, InterruptedException {
