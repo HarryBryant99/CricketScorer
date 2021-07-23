@@ -1132,7 +1132,7 @@ public class Innings {
         boolean alreadyBatted = false;
         int newBatsman = -1;
 
-        while (1 > newBatsman || newBatsman > 11) {
+        while (1 > newBatsman || newBatsman > 11 || alreadyBatted) {
             System.out.println("Enter player number for the new batsmen:");
             for (int i = 0; i < batting.getPlayers().size(); i++) {
                 for (int j = 0; j < batsmen.size(); j++) {
@@ -1146,6 +1146,9 @@ public class Innings {
                 alreadyBatted = false;
             }
             newBatsman = in.nextInt();
+            if (batting.getPlayers().get(newBatsman-1).hasAlreadyBatted()){
+                alreadyBatted = true;
+            }
         }
         newBatsman--;
 

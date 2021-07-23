@@ -16,6 +16,8 @@ public class Player {
     private int wickets;
     private int maidens;
 
+    private boolean alreadyBatted;
+
     private String howOut = "not out";
 
     public Player(String firstname, String surname) {
@@ -172,5 +174,13 @@ public class Player {
 
     public void setHowOut(String howOut) {
         this.howOut = howOut;
+    }
+
+    public boolean hasAlreadyBatted() {
+        return alreadyBatted;
+    }
+
+    public void setAlreadyBatted(boolean alreadyBatted) {
+        this.alreadyBatted = alreadyBatted;
     }
 }
