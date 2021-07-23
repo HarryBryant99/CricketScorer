@@ -1076,6 +1076,7 @@ public class Innings {
                 case "ro" :
                     lastMan = "run out " + getFielder();
                     int manOut = runOut();
+                    runsOffRunOut();
                     if (manOut == 1){
                         batting.getPlayers().get(manOut).setHowOut(lastMan);
                         setLastWicket(batting.getPlayers().get(striker).getShortName() + " " + lastMan + " (" +
@@ -1177,5 +1178,67 @@ public class Innings {
         }
         in.nextLine();
         return whoOut;
+    }
+
+    private void runsOffRunOut(){
+        String input = "";
+        while (input.equalsIgnoreCase("")){
+            System.out.println("What happened on this ball (h or 'help' for more information)");
+            input = in.nextLine();
+        }
+
+        if (previousBalls.size()>18){
+            previousBalls.remove(0);
+        }
+
+        if (isNumeric(input) && Integer.parseInt(input) > -1){
+            alreadyOver = false;
+            if (Integer.parseInt(input) == 0){
+                setDots(getDots()+1);
+            }
+            updateScore(input);
+            updateBalls();
+            bowling.getPlayers().get(bowler).setRunsConceded(bowling.getPlayers().get(bowler).getRunsConceded()+Integer.parseInt(input));
+            bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
+
+            updatePartnership(input);
+
+            if (onStrike) {
+                updateBatsmen(striker, input);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(striker).getInitials() + ": " + input);
+            } else {
+                updateBatsmen(nonStriker, input);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
+            }
+        } else if (input.equalsIgnoreCase("b") ||
+                input.equalsIgnoreCase("lb") ||
+                input.equalsIgnoreCase("+") ||
+                input.equalsIgnoreCase("nb")) {
+            alreadyOver = false;
+            extras(input);
+        } else if (input.equalsIgnoreCase("w")){
+            alreadyOver = false;
+            if (onStrike) {
+                wicket(striker);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(striker).getInitials() + ": " + input);
+            } else {
+                wicket(nonStriker);
+
+                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
+                        batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
+            }
+        } else if (input.equalsIgnoreCase("Switch bat")){
+            switchBat("1");
+            runsOffRunOut();
+        } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
+            help();
+            runsOffRunOut();
+        }
     }
 }
