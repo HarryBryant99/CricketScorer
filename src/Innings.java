@@ -172,16 +172,16 @@ public class Innings {
                 previousBalls.remove(0);
             }
 
+            if (getDots() == 6){
+                bowling.getPlayers().get(bowler).setMaidens(bowling.getPlayers().get(bowler).getMaidens()+1);
+            }
+            setDots(0);
+
             previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + ": " +
                     bowling.getPlayers().get(bowler).getOvers() + "-" +
                     bowling.getPlayers().get(bowler).getMaidens() + "-" +
                     bowling.getPlayers().get(bowler).getWickets() + "-" +
                     bowling.getPlayers().get(bowler).getRunsConceded());
-
-            if (getDots() == 6){
-                bowling.getPlayers().get(bowler).setMaidens(bowling.getPlayers().get(bowler).getMaidens()+1);
-            }
-            setDots(0);
 
             if (getPreviousBowler() !=-1){
                 do {
@@ -1019,6 +1019,7 @@ public class Innings {
                             batting.getPlayers().get(batsman).getRuns() + ")");
                     batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
                     bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                     if (getWickets() != 9) {
                         if (onStrike){
                             striker = newBat();
@@ -1034,6 +1035,7 @@ public class Innings {
                             batting.getPlayers().get(batsman).getRuns() + ")");
                     batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
                     bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                     if (getWickets() != 9) {
                         if (onStrike){
                             striker = newBat();
@@ -1049,6 +1051,7 @@ public class Innings {
                             batting.getPlayers().get(batsman).getRuns() + ")");
                     batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
                     bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                     if (getWickets() != 9) {
                         if (onStrike) {
                             striker = newBat();
@@ -1065,6 +1068,7 @@ public class Innings {
                             batting.getPlayers().get(batsman).getRuns() + ")");
                     batting.getPlayers().get(batsman).setBalls(batting.getPlayers().get(batsman).getBalls()+1);
                     bowling.getPlayers().get(bowler).setWickets(bowling.getPlayers().get(bowler).getWickets()+1);
+                    bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                     if (getWickets() != 9) {
                         if (onStrike) {
                             striker = newBat();
@@ -1078,7 +1082,7 @@ public class Innings {
                     int manOut = runOut();
                     runsOffRunOut();
                     if (manOut == 1){
-                        batting.getPlayers().get(manOut).setHowOut(lastMan);
+                        batting.getPlayers().get(striker).setHowOut(lastMan);
                         setLastWicket(batting.getPlayers().get(striker).getShortName() + " " + lastMan + " (" +
                                 batting.getPlayers().get(striker).getRuns() + ")");
                         if (getWickets() != 9) {
@@ -1101,7 +1105,6 @@ public class Innings {
 
             setBalls(getBalls()+1);
             setWickets(getWickets()+1);
-            bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
             setFow(getScore());
             setPartnershipSixes(0);
             setPartnershipRuns(0);
@@ -1205,14 +1208,8 @@ public class Innings {
 
             if (onStrike) {
                 updateBatsmen(striker, input);
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(striker).getInitials() + ": " + input);
             } else {
                 updateBatsmen(nonStriker, input);
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
             }
         } else if (input.equalsIgnoreCase("b") ||
                 input.equalsIgnoreCase("lb") ||
@@ -1220,19 +1217,6 @@ public class Innings {
                 input.equalsIgnoreCase("nb")) {
             alreadyOver = false;
             extras(input);
-        } else if (input.equalsIgnoreCase("w")){
-            alreadyOver = false;
-            if (onStrike) {
-                wicket(striker);
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(striker).getInitials() + ": " + input);
-            } else {
-                wicket(nonStriker);
-
-                previousBalls.add(bowling.getPlayers().get(bowler).getInitials() + " to " +
-                        batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
-            }
         } else if (input.equalsIgnoreCase("Switch bat")){
             switchBat("1");
             runsOffRunOut();
