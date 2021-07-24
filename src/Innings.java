@@ -132,6 +132,9 @@ public class Innings {
         batting.getPlayers().get(striker).setAlreadyBatted(true);
         batting.getPlayers().get(nonStriker).setAlreadyBatted(true);
 
+        batting.getPlayers().get(striker).setHowOut("not out");
+        batting.getPlayers().get(nonStriker).setHowOut("not out");
+
         confirm = "";
         while (!confirm.equalsIgnoreCase("yes")) {
             while (1 > bowler || bowler > 11) {
@@ -204,8 +207,8 @@ public class Innings {
             }
             alreadyOver = true;
         }
-
         clear();
+        //System.out.println(onStrike);
         printScore();
 
         String input = "";
@@ -264,9 +267,12 @@ public class Innings {
                         batting.getPlayers().get(nonStriker).getInitials() + ": " + input);
             }
         } else if (input.equalsIgnoreCase("Switch bat")){
-            switchBat("1");
+            batsmenSwitch();
+            //System.out.println(onStrike);
         } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
             help();
+        } else if (input.equalsIgnoreCase("retired")){
+            retired();
         }
     }
 
@@ -281,10 +287,12 @@ public class Innings {
             if (getBalls() % 6 == 0){
                 overs = getBalls()/6 + ".0";
 
-                if (onStrike) {
-                    onStrike = false;
-                } else {
-                    onStrike = true;
+                if (!alreadyOver) {
+                    if (onStrike) {
+                        onStrike = false;
+                    } else {
+                        onStrike = true;
+                    }
                 }
 
             } else {
@@ -811,7 +819,7 @@ public class Innings {
     }
 
     private String getRunRate(){
-        if (getBalls()!=0) {
+        if ((getScore()==0)||(getBalls()!=0)) {
             DecimalFormat df = new DecimalFormat("#.00");
             //return df.format((getRuns() / getBalls()) * 100);
             double runs = getScore();
@@ -938,11 +946,13 @@ public class Innings {
         switch(input) {
             case "b" :
                 setByes(getByes()+Integer.parseInt(amount));
+                setBalls(getBalls()+1);
                 bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                 updatePartnership(amount);
                 break; // optional
             case "lb" :
                 setLegByes(getLegByes()+Integer.parseInt(amount));
+                setBalls(getBalls()+1);
                 bowling.getPlayers().get(bowler).setBallsBowled(bowling.getPlayers().get(bowler).getBallsBowled()+1);
                 updatePartnership(amount);
                 break; // optional
@@ -1040,6 +1050,7 @@ public class Innings {
                             nonStriker = newBat();
                         }
                     }
+                    setBalls(getBalls()+1);
                     break;
                 case "l":
                     lastMan = "lbw. " + bowlersName;
@@ -1056,6 +1067,7 @@ public class Innings {
                             nonStriker = newBat();
                         }
                     }
+                    setBalls(getBalls()+1);
                     break;
                 case "c" :
                     lastMan = "c. " + getFielder() + " b. " + bowlersName;
@@ -1073,6 +1085,7 @@ public class Innings {
                         }
                         checkStrike();
                     }
+                    setBalls(getBalls()+1);
                     break;
                 case "s" :
                     lastMan = "st. " + getFielder() + " b. " + bowlersName;
@@ -1089,6 +1102,7 @@ public class Innings {
                             nonStriker = newBat();
                         }
                     }
+                    setBalls(getBalls()+1);
                     break;
                 case "ro" :
                     lastMan = "run out " + getFielder();
@@ -1116,7 +1130,6 @@ public class Innings {
                 default :
             }
 
-            setBalls(getBalls()+1);
             setWickets(getWickets()+1);
             setFow(getScore());
             setPartnershipSixes(0);
@@ -1241,6 +1254,26 @@ public class Innings {
         } else if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("help")) {
             help();
             runsOffRunOut();
+        }
+    }
+
+    private void retired(){
+        if (onStrike){
+            batting.getPlayers().get(striker).setAlreadyBatted(false);
+            striker = newBat();
+            batting.getPlayers().get(striker).setHowOut("retired");
+        } else {
+            batting.getPlayers().get(nonStriker).setAlreadyBatted(false);
+            nonStriker = newBat();
+            batting.getPlayers().get(nonStriker).setHowOut("retired");
+        }
+    }
+
+    private void batsmenSwitch(){
+        if (onStrike){
+            onStrike = false;
+        } else {
+            onStrike = true;
         }
     }
 }

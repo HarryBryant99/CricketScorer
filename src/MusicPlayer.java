@@ -1,5 +1,8 @@
 // Java program to play an Audio
 // file using Clip Object
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -21,23 +24,23 @@ public class MusicPlayer {
         //playMusic();
     }
 
-    public void playMusic(int type){
+    public void playMusic(int type) {
         String folder = null;
         int number = 0;
-        switch(type) {
-            case 0 :
+        switch (type) {
+            case 0:
                 folder = "Boundary";
                 number = getRandomNumberInRange(55);
                 break; // optional
-            case 1 :
+            case 1:
                 folder = "Over";
                 number = getRandomNumberInRange(45);
                 break; // optional
-            case 2 :
+            case 2:
                 folder = "Wicket";
                 number = getRandomNumberInRange(34);
                 break; // optional
-            default : // Optional
+            default: // Optional
                 // Statements
         }
 
@@ -48,7 +51,7 @@ public class MusicPlayer {
             music = new FileInputStream(new File(filepath));
             AudioStream audio = new AudioStream(music);
             AudioPlayer.player.start(audio);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
