@@ -45,7 +45,7 @@ public class MusicPlayer {
         }
 
         InputStream music;
-        String filepath = "Music/" + folder + "/" + number + ".wav";
+        String filepath = "Music\\" + folder + "\\" + number + ".wav";
 
         try {
             music = new FileInputStream(new File(filepath));

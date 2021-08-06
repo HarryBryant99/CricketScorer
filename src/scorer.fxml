@@ -201,7 +201,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bat 1" textAlignment="RIGHT" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bat 1" textAlignment="RIGHT" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -212,7 +212,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1runs" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -220,7 +220,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1balls" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -228,7 +228,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1fours" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -236,7 +236,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1sixes" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -244,7 +244,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                    <Label fx:id="lbl_bat1sr" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -252,7 +252,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bat 2" textAlignment="RIGHT" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bat 2" textAlignment="RIGHT" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -263,7 +263,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2runs" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -271,7 +271,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2balls" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -279,7 +279,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2fours" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -287,7 +287,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2sixes" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -295,7 +295,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                                    <Label fx:id="lbl_bat2sr" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -314,7 +314,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Label fx:id="lbl_partnershipruns" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -322,7 +322,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                    <Label fx:id="lbl_partnershipballs" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -330,7 +330,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                    <Label fx:id="lbl_partnershipfours" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -338,7 +338,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                    <Label fx:id="lbl_partnershipsixes" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -346,7 +346,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                                    <Label fx:id="lbl_partnershipsr" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -405,7 +405,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bowler" textAlignment="RIGHT" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowler" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bowler" textAlignment="RIGHT" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -416,7 +416,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="598.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowlerovers" alignment="CENTER_RIGHT" layoutX="598.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -424,7 +424,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="748.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowlermaidens" alignment="CENTER_RIGHT" layoutX="748.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -432,7 +432,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="899.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowlerwickets" alignment="CENTER_RIGHT" layoutX="899.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -440,7 +440,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="1049.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowlerruns" alignment="CENTER_RIGHT" layoutX="1049.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>
@@ -448,7 +448,7 @@
                                           <Insets right="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="1200.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                                    <Label fx:id="lbl_bowlereconomy" alignment="CENTER_RIGHT" layoutX="1200.0" layoutY="236.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="Arial" size="30.0" />
                                        </font>

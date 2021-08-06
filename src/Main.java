@@ -17,6 +17,10 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
         String confirm = "";
         overs = 0;
+
+        Music newMusic = new Music();
+        newMusic.playMusic();
+
         while (!confirm.equalsIgnoreCase("yes")) {
 
             System.out.println("Enter home team:");
